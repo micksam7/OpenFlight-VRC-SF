@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ Maintainer: Happyrobot33
  */
 
@@ -29,10 +29,19 @@ namespace OpenFlightVRC
 		[ReadOnlyInspector]
 		public string latestReleaseVersion = "?.?.?";
 
+		public float stringLoaderDelay = 0f;
+
+		bool loadedUrl = false;
+
 		void Start()
 		{
 			//subscribe to the avatar list loader callback
-			AvatarListLoader.AddCallback(AvatarListLoaderCallback.AvatarListLoaded, this, nameof(LoadURL));
+			//AvatarListLoader.AddCallback(AvatarListLoaderCallback.AvatarListLoaded, this, nameof(LoadURLDelayed));
+			LoadURLDelayed();
+		}
+
+		public void LoadURLDelayed() {
+			SendCustomEventDelayedSeconds(nameof(LoadURL),stringLoaderDelay);
 		}
 
 		public void LoadURL()
