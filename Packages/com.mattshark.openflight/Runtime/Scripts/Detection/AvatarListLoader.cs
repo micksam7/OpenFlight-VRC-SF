@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @ Maintainer: Happyrobot33
  */
 
@@ -36,6 +36,16 @@ namespace OpenFlightVRC
 		/// If true, the URL will not be loaded, and the in-world JSON will be used instead
 		/// </summary>
 		public bool useOfflineJSON = false;
+
+		public float stringLoaderDelay = 0f;
+
+		public void LoadURLDelayed() {
+			Output = "";
+			Output = OfflineJSON.text;
+			Logger.Log("Force-using in-world JSON list", this);
+			RunCallback(AvatarListLoaderCallback.AvatarListLoaded);
+			SendCustomEventDelayedSeconds(nameof(LoadURL), stringLoaderDelay);
+		}
 
 		/// <summary>
 		/// 	Loads the URL and sets the Output property. This is done asynchronously, so make sure your script waits for output to be set. See VRCStringDownloader for more information
